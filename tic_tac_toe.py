@@ -3,7 +3,7 @@ def init_board():
     board = []
     return board
 
-
+#dodaję komentzarz
 def get_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
     row, col = 0, 0
