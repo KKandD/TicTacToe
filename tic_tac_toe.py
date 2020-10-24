@@ -3,32 +3,42 @@ def init_board():
     board = [['.', ' | ', '.', ' | ', '.'],['.', ' | ', '.', ' | ', '.'],['.', ' | ', '.', ' | ', '.']]
     return board
 
-#dodaję komentzarz
+
 def get_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
-    player_move = input()
-    row, col = 0, 0
+    
+    list_of_valid_coordinates = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3", "a1", "a2", "a3", "b1", "b2", "b3", "c1", "c2", "c3"]
+    row, col = (0, 0)
+    correct_coordinates = False
 
-    if player_move == "A1":
-        row, col = 1, 1
-    if player_move == "A2":
-        row, col = 1, 2
-    if player_move == "A3":
-        row, col = 1, 3
-    if player_move == "B1":
-        row, col = 2, 1
-    if player_move == "B2":
-        row, col = 2, 2
-    if player_move == "B3":
-        row, col = 2, 3
-    if player_move == "C1":
-        row, col = 3, 1
-    if player_move == "C2":
-        row, col = 3, 2
-    if player_move == "C3":
-        row, col = 3, 3
+    while not correct_coordinates:
+        
+        player_move = input("Give your coordinates: ")
 
-    return row, col
+        if player_move not in list_of_valid_coordinates:
+            continue
+        else:
+            if player_move == "A1" or "a1":
+                row, col = (1, 1)
+            if player_move == "A2" or "a2":
+                row, col = (1, 2)
+            if player_move == "A3" or "a3":
+                row, col = (1, 3)
+            if player_move == "B1" or "b1":
+                row, col = (2, 1)
+            if player_move == "B2" or "b2":
+                row, col = (2, 2)
+            if player_move == "B3" or "b3":
+                row, col = (2, 3)
+            if player_move == "C1" or "c1":
+                row, col = (3, 1)
+            if player_move == "C2" or "c2":
+                row, col = (3, 2)
+            if player_move == "C3" or "c3":
+                row, col = (3, 3)    
+            correct_coordinates = True
+            
+        return row, col
 
 
 def get_ai_move(board, player):
