@@ -66,12 +66,12 @@ def is_full(board):
 
 def print_board(board):
     """Prints a 3-by-3 board on the screen with borders."""
-    print(" 1     2     3")
-    print(str(board[0]).replace("[", " ").replace("]", "").replace("'", "").replace(",","" ))
-    print("----+-----+----")
-    print(str(board[1]).replace("[", " ").replace("]", "").replace("'", "").replace(",","" ))
-    print("----+-----+----")
-    print(str(board[2]).replace("[", " ").replace("]", "").replace("'", "").replace(",","" ))
+    print("   1     2     3")
+    print("A " + str(board[0]).replace("[", " ").replace("]", "").replace("'", "").replace(",","" ))
+    print("  ----+-----+----")
+    print("B " + str(board[1]).replace("[", " ").replace("]", "").replace("'", "").replace(",","" ))
+    print("  ----+-----+----")
+    print("C " + str(board[2]).replace("[", " ").replace("]", "").replace("'", "").replace(",","" ))
     
 
 
