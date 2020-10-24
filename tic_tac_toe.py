@@ -7,7 +7,6 @@ def init_board():
 def get_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
     
-    list_of_valid_coordinates = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3", "a1", "a2", "a3", "b1", "b2", "b3", "c1", "c2", "c3"]
     row, col = (0, 0)
     correct_coordinates = False
 
@@ -15,30 +14,39 @@ def get_move(board, player):
         
         player_move = input("Give your coordinates: ")
 
-        if player_move not in list_of_valid_coordinates:
-            continue
-        else:
-            if player_move == "A1" or "a1":
-                row, col = (1, 1)
-            if player_move == "A2" or "a2":
-                row, col = (1, 2)
-            if player_move == "A3" or "a3":
-                row, col = (1, 3)
-            if player_move == "B1" or "b1":
-                row, col = (2, 1)
-            if player_move == "B2" or "b2":
-                row, col = (2, 2)
-            if player_move == "B3" or "b3":
-                row, col = (2, 3)
-            if player_move == "C1" or "c1":
-                row, col = (3, 1)
-            if player_move == "C2" or "c2":
-                row, col = (3, 2)
-            if player_move == "C3" or "c3":
-                row, col = (3, 3)    
-            correct_coordinates = True
+        if player_move == "A1" or player_move == "a1" and board[0][0] == ".":
+            row, col = (1, 1)
+
+        elif player_move == "A2" or player_move == "a2" and board[0][2] == ".":
+            row, col = (1, 2)
+
+        elif player_move == "A3" or player_move == "a3" and board[0][4] == ".":
+            row, col = (1, 3)
+
+        elif player_move == "B1" or player_move == "b1" and board[1][0] == ".":
+            row, col = (2, 1)
+
+        elif player_move == "B2" or player_move == "b2" and board[1][2] == ".":
+            row, col = (2, 2)
+
+        elif player_move == "B3" or player_move == "b3" and board[1][4] == ".":
+            row, col = (2, 3)
+
+        elif player_move == "C1" or player_move == "c1" and board[2][0] == ".":
+            row, col = (3, 1)
+
+        elif player_move == "C2" or player_move == "c2" and board[2][2] == ".":
+            row, col = (3, 2)
+
+        elif player_move == "C3" or player_move == "c3" and board[2][4] == ".":
+            row, col = (3, 3)
             
-        return row, col
+        else:
+            continue
+
+        correct_coordinates = True
+        
+    return(row, col)
 
 
 def get_ai_move(board, player):
