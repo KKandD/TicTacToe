@@ -57,9 +57,34 @@ def get_ai_move(board, player):
 
 def mark(board, player, row, col):
     """Marks the element at row & col on the board for player."""
+
+    player = "X"
+    
     if row == 1 and col == 1:
-        pass
-    pass
+        board[0][0] = player
+    elif row == 1 and col == 2:
+        board[0][2] = player
+    elif row == 1 and col == 3:
+        board[0][4] = player
+    elif row == 2 and col == 1:
+        board[1][0] = player
+    elif row == 2 and col == 2:
+        board[1][2] = player
+    elif row == 2 and col == 3:
+        board[1][4] = player
+    elif row == 3 and col == 1:
+        board[2][0] = player
+    elif row == 3 and col == 2:
+        board[2][2] = player
+    elif row == 3 and col == 3:
+        board[2][4] = player
+    
+    if player == "X":
+        player = "0"
+    else:
+        player = "X"
+    
+    return board
 
 
 def has_won(board, player):
