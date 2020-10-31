@@ -1,5 +1,14 @@
 import os
+import random
+import time
 
+def welcome_menu():
+    print("Welcome to TICTACTOE game")
+    print()
+    print("1. HUMAN-HUMAN")
+    print("2. HUMAN-AI")
+    print("3. AI-AI")
+    print()
 
 def init_board():
     """Returns an empty 3-by-3 board (with .)."""
@@ -15,9 +24,11 @@ def get_move(board, player):
 
     while not correct_coordinates:
     
-        player_move = input("Give your coordinates: ")
-
-        if player_move == "A1" or player_move == "a1" and board[0][0] == ".":
+        player_move = input(f"Player {player} turn: ").lower()
+        
+        if player_move == "quit":
+            row, col = (0, 0)
+        elif player_move == "A1" or player_move == "a1" and board[0][0] == ".":
             row, col = (1, 1)
         elif player_move == "A2" or player_move == "a2" and board[0][1] == ".":
             row, col = (1, 2)
@@ -44,8 +55,23 @@ def get_move(board, player):
 def get_ai_move(board, player):
     """Returns the coordinates of a valid move for player on board."""
 
-    row, col = 0, 0
+    row, col = (0, 0)
+
+    possible_move_list = []
+    for x in range(3):
+        for y in range(3):
+            if board[x][y] == ".":
+                row = x + 1
+                col = y + 1
+                possible_move_list.append((row, col))
+
+    row, col = random.choice(possible_move_list)
+
     return row, col
+
+#Tutaj bym dodał tudny AI żeby było można w opcjach wybrać gre z łatwym albo trudnym AI
+# def get_hard_ai_move(board, player):
+#     """Returns the coordinates of a valid move for player on board."""
 
 
 def mark(board, player, row, col):
@@ -127,57 +153,152 @@ def print_board(board):
     print(f'B {board[1][0]} | {board[1][1]} | {board[1][2]}')
     print(" ---+---+---")
     print(f'C {board[2][0]} | {board[2][1]} | {board[2][2]}')
+    print()
 
 
 def print_result(winner):
     """Congratulates winner or proclaims tie (if winner equals zero)."""
     if winner != 1:
         print(f"Congrats {winner} is the champion!")
+        print()
     else:
         os.system('cls' if os.name == 'nt' else 'clear')
         print("It's a tie")
+        print()
+
+def tictactoe_game(mode):
+
+    if mode == 'HUMAN-HUMAN':
+        board = init_board()
+        player = "0"
+        playing = True
+        while playing:
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            if player == "0":
+                player = "X"
+            else:
+                player = "0"
+            
+            print_board(board)
+            row, col = get_move(board, player)
+            if (row, col) != (0, 0):
+                mark(board, player, row, col)
+
+                if has_won(board, player) == True:
+                    winner = player
+                    playing = False
+                    print_result(winner)
+                    if input("Do you want to play again? Y or N: ").lower() == "y":
+                        main_menu()
+
+                if is_full(board) == True:
+                    winner = 1
+                    playing = False
+                    print_result(winner)
+                    if input("Do you want to play again? Y or N: ").lower() == "y":
+                        main_menu()
+            else:
+                playing = False
+    elif mode == 'HUMAN-AI':
+        board = init_board()
+        player = "0"
+        playing = True
+        while playing:
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            if player == "0":
+                player = "X"
+            else:
+                player = "0"
+            
+            print_board(board)
+            if player == "X":
+                row, col = get_move(board, player)
+            elif player == "0":
+                row, col = get_ai_move(board, player)
+                time.sleep(1.8)
+            if (row, col) != (0, 0):
+                mark(board, player, row, col)
+
+                if has_won(board, player) == True:
+                    winner = player
+                    playing = False
+                    print_result(winner)
+                    if input("Do you want to play again? Y or N: ").lower() == "y":
+                        main_menu()
+
+                if is_full(board) == True:
+                    winner = 1
+                    playing = False
+                    print_result(winner)
+                    if input("Do you want to play again? Y or N: ").lower() == "y":
+                        main_menu()
+            else:
+                playing = False
+    elif mode == 'AI-AI':
+        board = init_board()
+        player = "0"
+        playing = True
+        while playing:
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            if player == "0":
+                player = "X"
+            else:
+                player = "0"
+            
+            print_board(board)
+            if player == "X":
+                row, col = get_ai_move(board, player)
+                time.sleep(1.8)
+            elif player == "0":
+                row, col = get_ai_move(board, player)
+                time.sleep(1.8)
+            if (row, col) != (0, 0):
+                mark(board, player, row, col)
+
+                if has_won(board, player) == True:
+                    winner = player
+                    playing = False
+                    print_result(winner)
+                    if input("Do you want to play again? Y or N: ").lower() == "y":
+                        main_menu()
+
+                if is_full(board) == True:
+                    winner = 1
+                    playing = False
+                    print_result(winner)
+                    if input("Do you want to play again? Y or N: ").lower() == "y":
+                        main_menu()
+            else:
+                playing = False
     
-
-
-def tictactoe_game(mode='HUMAN-HUMAN'):
-
-    board = init_board()
-    player = "0"
-    
-    playing = True
-    while playing:
-        os.system('cls' if os.name == 'nt' else 'clear')
-
-
-        if player == "0":
-            player = "X"
-        else:
-            player = "0"
-        
-        # use get_move(), mark(), has_won(), is_full(), and print_board() to create game logic
-        print_board(board)
-        row, col = get_move(board, player)
-        mark(board, player, row, col)
-
-        if has_won(board, player) == True:
-            winner = player
-            playing = False
-            print_result(winner)
-
-        if is_full(board) == True:
-            winner = 1
-            playing = False
-            print_result(winner)
-
-    
-
-
-        
 
 
 def main_menu():
-    tictactoe_game('HUMAN-HUMAN')
+    game_over = False
+    while not game_over:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        welcome_menu()
+        game_mode = input("Choose game mode: ")
+        #game_mode = input("Choose game mode:\n 1. HUMAN-HUMAN\n 2. HUMAN-AI\n 3. AI-AI\n ")
 
+        if game_mode == "1":
+            tictactoe_game('HUMAN-HUMAN')
+            game_over = True
+        elif game_mode == "2":
+            tictactoe_game('HUMAN-AI')
+            game_over = True
+        elif game_mode == "3":
+            tictactoe_game('AI-AI')
+            game_over = True
+        else:
+            print()
+            print("Choose correct option, 1, 2 or 3")
+            print()
+            time.sleep(3.0)
+            continue
 
 if __name__ == '__main__':
     main_menu()
