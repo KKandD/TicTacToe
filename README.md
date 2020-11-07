@@ -1,3 +1,3 @@
 # Tic Tac Toe
 
-2nd Codecool project: Work in progress...
+2nd Codecool project
